@@ -34,11 +34,14 @@ spec:
       volumes:
         - name: vprod-db-data
           awsElasticBlockStore:
-            volumeID: vol-0fc1e5a80040465b1
+            volumeID: vol-01f84e5dcc682d5e7
             fsType: ext4
+        #make sure to tag this volume with Key: KubernetesCluster and Value: vprokube.mandohashdevops.com
       initContainers:
-        - name: busybox
-          image: busybox:latest
+        #By default, lost+found is created when you format the disk with ext4. In order for mysql to work
+        #This /var/lib/mysql location should be empty, so this init container will delete the data before launching the actual pod
+        - name: busybox 
+          image: busybox:latest #lightweight linux container
           args: ["rm", "-rf", "/var/lib/mysql/lost+found"]
           volumeMounts:
             - name: vprod-db-data
