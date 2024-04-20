@@ -34,7 +34,7 @@ spec:
       volumes:
         - name: vprod-db-data
           awsElasticBlockStore:
-            volumeID: vol-0ec221306f58f60bb
+            volumeID: vol-0d5cd884635d1ee3e
             fsType: ext4
         #make sure to tag this volume with Key: KubernetesCluster and Value: vprokube.mandohashdevops.com
       initContainers:
